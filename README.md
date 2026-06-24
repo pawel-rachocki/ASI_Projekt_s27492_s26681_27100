@@ -1,4 +1,4 @@
-# Przewidywanie jakości wina 🍷
+# Przewidywanie jakości wina
 
 Projekt zaliczeniowy — przewidywanie jakości czerwonego wina (zbiór *Wine Quality – Red*).
 Problem ujęty jako **klasyfikacja binarna**: `quality >= 6 → "dobre" (1)`, inaczej `"słabe" (0)`.
@@ -58,13 +58,13 @@ jupyter lab notebooks/01_baseline_eda.ipynb
 
 ## Status sekcji wymagań
 
-| Sekcja | Zakres | Status |
+| Sekcja | Zakres | Kto |
 |---|---|---|
-| 1. Organizacja zespołu | repo, środowisko conda, struktura | ✅ w toku (s27492) |
-| 2. Baseline (Jupyter) | EDA, preprocessing, model bazowy, ewaluacja (F1 0,745 / ROC-AUC 0,812) | ✅ s27492 |
-| 3. Pipeline Kedro | ingest → preprocessing → train → eval | 🔜 s26681 |
-| 4. Udoskonalanie modelu | MLflow, AutoML, strojenie | 🔜 s26681 |
-| 5. Pipeline produkcyjny | Flask API/GUI, Docker, monitoring | 🔜 27100 |
-| 6. MLOps (Opcja A) | DVC, Feast, MLflow Registry | 🔜 s27492 / s26681 / 27100 |
-| 7. Dokumentacja | README, diagram, instrukcja | 🔄 ciągłe |
-| 8. Prezentacja | slajdy + demo | 🔜 27100 |
+| 1. Organizacja zespołu | repo, środowisko conda, struktura | s27492 |
+| 2. Baseline (Jupyter) | EDA, preprocessing, model bazowy, ewaluacja (F1 0,745 / ROC-AUC 0,812) | s27492 |
+| 3. Pipeline Kedro | ingest → preprocessing → train → eval | s26681 |
+| 4. Udoskonalanie modelu | MLflow, AutoML, strojenie | s26681 |
+| 5. Pipeline produkcyjny | Flask API/GUI, Docker, monitoring | 27100 |
+| 6. MLOps (Opcja A) | DVC, Feast, MLflow Registry | s27492 / s26681 / 27100 |
+| 7. Dokumentacja | README, diagram, instrukcja | cały zespół |
+| 8. Prezentacja | slajdy + demo | 27100 |
