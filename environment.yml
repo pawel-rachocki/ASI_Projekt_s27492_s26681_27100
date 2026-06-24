@@ -1,0 +1,26 @@
+name: wine
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pandas
+  - numpy
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - jupyterlab
+  - ipykernel
+  - pytest
+  - pip:
+      - dvc
+      - dvc-gdrive
+      # - kedro
+      # - kedro-datasets
+      # - kedro-mlflow
+      # - mlflow
+      # - pycaret
+      # - optuna
+      # - feast
+      # - flask
+      # - evidently

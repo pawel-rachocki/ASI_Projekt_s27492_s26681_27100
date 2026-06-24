@@ -1,0 +1,41 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+
+# --- Środowiska ---
+.env
+.venv/
+venv/
+env/
+
+# --- Dane (wersjonowane przez DVC, nie przez Git) ---
+/data/01_raw/*
+/data/02_intermediate/*
+/data/03_primary/*
+/data/05_model_input/*
+/data/06_models/*
+/data/08_reporting/*
+# zachowujemy strukturę katalogów i wskaźniki DVC:
+!/data/**/.gitkeep
+!/data/**/*.dvc
+
+# --- DVC ---
+/.dvc/cache
+/.dvc/tmp
+
+# --- MLflow ---
+mlruns/
+mlflow.db
+
+# --- Kedro ---
+/conf/local/
+
+# --- IDE / OS ---
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
