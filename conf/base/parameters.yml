@@ -1,0 +1,10 @@
+# Definicje parametrów rurociągów
+
+# Threshold binaryzacji celu (zgodnie z założeniami >= 6 to 1)
+target_threshold: 6
+
+# Ziarno losowości dla spójności wyników
+random_state: 42
+
+# Proporcja danych testowych
+test_size: 0.2

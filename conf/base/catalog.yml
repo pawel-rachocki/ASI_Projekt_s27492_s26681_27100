@@ -1,0 +1,42 @@
+# W tym pliku definiujemy źródła danych wejściowych i wyjściowych (zgodnie ze strukturą warstwową)
+
+# Surowe dane w formacie CSV, powiązane z DVC
+wine_raw:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/winequality-red.csv
+
+# Dane po czyszczeniu i binaryzacji targetu
+wine_cleaned:
+  type: pandas.CSVDataset
+  filepath: data/02_intermediate/wine_cleaned.csv
+
+# ---- Dane wejściowe modelu (data/05_model_input/) ----
+
+X_train:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/X_train.csv
+
+X_test:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/X_test.csv
+
+y_train:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/y_train.csv
+
+y_test:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/y_test.csv
+
+# ---- Model (data/06_models/) ----
+
+baseline_logreg:
+  type: pickle.PickleDataset
+  filepath: data/06_models/baseline_logreg.pkl
+  backend: pickle
+
+# ---- Raportowanie (data/08_reporting/) ----
+
+metrics:
+  type: json.JSONDataset
+  filepath: data/08_reporting/metrics.json

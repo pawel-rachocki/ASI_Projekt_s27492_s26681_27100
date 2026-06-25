@@ -3,6 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.11
+  - setuptools<65
   - pip
   - pandas
   - numpy
@@ -15,12 +16,15 @@ dependencies:
   - pip:
       - dvc
       - dvc-gdrive
-      # - kedro
-      # - kedro-datasets
-      # - kedro-mlflow
-      # - mlflow
-      # - pycaret
-      # - optuna
-      # - feast
-      # - flask
-      # - evidently
+      - kedro
+      - kedro-datasets
+      - kedro-mlflow
+      - mlflow
+      - pycaret>=3.3.0
+      - optuna
+      - optuna-integration[sklearn]
+      - feast>=0.37.0
+      - flask
+      - evidently
+      - xgboost
+      - lightgbm

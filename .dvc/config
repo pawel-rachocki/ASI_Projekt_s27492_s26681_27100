@@ -1,4 +1,6 @@
 [core]
-    remote = localstore
+    remote = azure_remote
 ['remote "localstore"']
     url = D:\dev\ASI\dvc-remote
+['remote "azure_remote"']
+    url = azure://dvc-container/

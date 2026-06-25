@@ -1,0 +1,24 @@
+[tool.kedro]
+package_name = "winequality"
+project_name = "winequality"
+kedro_init_version = "1.4.0"
+
+[project]
+name = "winequality"
+version = "0.1.0"
+description = "Przewidywanie jakości wina"
+dependencies = [
+    "kedro>=0.19.1",
+    "pandas>=1.5",
+    "scikit-learn>=1.0",
+    "kedro-mlflow",
+    "mlflow",
+    "pycaret",
+    "optuna",
+    "optuna-integration[sklearn]",
+    "xgboost",
+    "lightgbm"
+]
+
+[tool.kedro_telemetry]
+project_id = "acb8651820c14c0d9d6560c15e769590"
