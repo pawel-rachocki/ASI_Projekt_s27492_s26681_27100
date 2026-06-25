@@ -1,0 +1,5 @@
+# logi predykcji i raporty driftu są generowane w runtime — nie wersjonujemy
+*.csv
+*.json
+*.html
+!.gitignore

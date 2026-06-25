@@ -1,0 +1,73 @@
+:root {
+  --bg: #1b1023;
+  --card: #2a1830;
+  --accent: #7b2d4e;
+  --good: #2e7d32;
+  --bad: #b3261e;
+  --text: #f3e9ef;
+  --muted: #c7a9bb;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background: radial-gradient(circle at top, #3a1d3f, var(--bg));
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+.card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 760px;
+  width: 100%;
+  box-shadow: 0 10px 40px rgba(0,0,0,.45);
+}
+h1 { margin: 0 0 .25rem; font-size: 1.6rem; }
+.subtitle { color: var(--muted); margin-top: 0; }
+code { background: rgba(255,255,255,.08); padding: .1rem .35rem; border-radius: 5px; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: .8rem;
+  margin: 1rem 0;
+}
+label { display: flex; flex-direction: column; font-size: .82rem; color: var(--muted); gap: .25rem; }
+input {
+  padding: .5rem .6rem;
+  border-radius: 8px;
+  border: 1px solid #4a2c52;
+  background: #1f1325;
+  color: var(--text);
+  font-size: .95rem;
+}
+input:focus { outline: 2px solid var(--accent); }
+button {
+  width: 100%;
+  padding: .8rem;
+  border: 0;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1.05rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+button:hover { background: #93375e; }
+.result {
+  border-radius: 12px;
+  padding: 1.1rem;
+  margin: 1rem 0;
+  text-align: center;
+}
+.result.good { background: rgba(46,125,50,.22); border: 1px solid var(--good); }
+.result.bad { background: rgba(179,38,30,.22); border: 1px solid var(--bad); }
+.verdict { font-size: 2rem; font-weight: 800; letter-spacing: 1px; }
+.prob { margin-top: .3rem; }
+.src { font-size: .75rem; color: var(--muted); margin-top: .4rem; }
+.alert { background: rgba(179,38,30,.25); border: 1px solid var(--bad); padding: .7rem 1rem; border-radius: 8px; margin-bottom: 1rem; }
+.api { margin-top: 1.5rem; color: var(--muted); font-size: .85rem; }
+.api pre { background: #160d1b; padding: .8rem; border-radius: 8px; overflow-x: auto; }

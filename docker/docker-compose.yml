@@ -1,0 +1,26 @@
+# Wdrożenie lokalne przez Docker (sekcja 5).
+# Uruchomienie z katalogu głównego repo:
+#     docker compose -f docker/docker-compose.yml up --build
+# GUI:  http://localhost:5000
+#
+# Uwaga: MLflow nie jest tu uruchamiany — Model Registry powstaje w Commit 2 (s26681).
+# Serwowanie używa mocka (baseline) z data/06_models/. Gdy Registry zaistnieje,
+# wystarczy ustawić MLFLOW_TRACKING_URI (zmienna środowiskowa poniżej).
+services:
+  wine-serving:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: wine-quality-serving:latest
+    container_name: wine-serving
+    ports:
+      - "5000:5000"
+    volumes:
+      # dane + model wygenerowane lokalnie (bootstrap) widoczne w kontenerze
+      - ../data:/app/data
+      - ../serving/logs:/app/serving/logs
+    environment:
+      # odkomentuj, gdy powstanie MLflow Model Registry (Commit 2):
+      # - MLFLOW_TRACKING_URI=http://host.docker.internal:5001
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped

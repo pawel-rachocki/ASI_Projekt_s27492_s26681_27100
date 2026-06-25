@@ -1,0 +1,24 @@
+# Zależności pakietu produkcyjnego (Commit 3 / s27100) — Python 3.11
+# Instalacja:  pip install -r serving/requirements.txt
+
+# --- API + serwer ---
+flask==3.0.3
+gunicorn==22.0.0
+
+# --- model + dane ---
+joblib==1.4.2
+scikit-learn==1.5.2
+pandas==2.2.3
+numpy==1.26.4
+scipy==1.13.1
+pyarrow==17.0.0
+kagglehub==0.3.4
+
+# --- feature store ---
+feast==0.40.1
+
+# --- monitoring / drift (opcjonalny dashboard) ---
+evidently==0.4.40
+
+# --- (opcjonalnie) ładowanie modelu z MLflow Model Registry, gdy powstanie Commit 2 ---
+mlflow==2.17.0

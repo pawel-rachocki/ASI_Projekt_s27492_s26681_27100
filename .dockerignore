@@ -1,0 +1,16 @@
+.git
+.dvc/cache
+.dvc/tmp
+mlruns
+mlflow.db
+notebooks
+**/__pycache__
+**/*.pyc
+.pytest_cache
+.ipynb_checkpoints
+serving/logs/*.csv
+serving/logs/*.json
+serving/logs/*.html
+feature_repo/data/registry.db
+feature_repo/data/online_store.db
+.DS_Store

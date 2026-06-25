@@ -68,3 +68,80 @@ jupyter lab notebooks/01_baseline_eda.ipynb
 | 6. MLOps (Opcja A) | DVC, Feast, MLflow Registry | s27492 / s26681 / 27100 |
 | 7. Dokumentacja | README, diagram, instrukcja | cały zespół |
 | 8. Prezentacja | slajdy + demo | 27100 |
+
+---
+
+## Uruchomienie — serwowanie modelu (sekcja 5, Commit 3 / s27100)
+
+Pakiet produkcyjny: **Flask API + GUI**, **feature store (Feast)**, **monitoring** (logowanie
+predykcji + detekcja driftu) i **konteneryzacja (Docker)**.
+
+> **Uwaga:** MLflow Model Registry powstaje w Commit 2 (s26681) i jeszcze nie istnieje.
+> Serwowanie ładuje więc **mock = model bazowy** (`data/06_models/baseline_logreg.pkl`).
+> Kod ma już ścieżkę do Registry (`serving/model_loader.py`): gdy ustawisz
+> `MLFLOW_TRACKING_URI`, model zostanie pobrany z `models:/wine_quality/Production`,
+> a w razie niepowodzenia nastąpi automatyczny fallback do mocka.
+
+### A. Lokalnie
+
+```bash
+# 1. środowisko (Python 3.11) i zależności serwowania
+python -m venv .venv && source .venv/bin/activate        # lub: conda activate wine
+pip install -r serving/requirements.txt
+
+# 2. dane + mock modelu (DVC remote zespołu jest niedostępny poza Windows —
+#    dane pobieramy z Kaggle przez kagglehub)
+python serving/bootstrap_data.py     # -> data/01_raw/winequality-red.csv
+python serving/bootstrap_model.py    # -> data/06_models/baseline_logreg.pkl (F1 ~0,745)
+
+# 3. feature store (Feast)
+cd feature_repo && python generate_features.py && feast apply && \
+  feast materialize 2020-01-01T00:00:00 "$(date -u +%Y-%m-%dT%H:%M:%S)" && cd ..
+
+# 4. uruchomienie API + GUI
+gunicorn serving.app:app -b 0.0.0.0:5000     # lub: flask --app serving/app run --port 5000
+```
+
+GUI: **http://localhost:5000**
+
+### B. Docker
+
+```bash
+# najpierw raz lokalnie kroki 1–2 powyżej (CSV + model w ./data, montowane jako wolumin)
+docker compose -f docker/docker-compose.yml up --build
+```
+
+GUI: **http://localhost:5000**
+
+### Endpointy API
+
+| Metoda | Ścieżka | Opis |
+|---|---|---|
+| `GET` | `/` | formularz GUI (11 cech) → „dobre/słabe” + prawdopodobieństwo |
+| `POST` | `/predict` | JSON `{"features": {…}}` lub lista 11 wartości → predykcja |
+| `POST` | `/predict/by_id` | pobiera cechy z **Feast** po `wine_id`, potem predykcja |
+| `GET` | `/health` | status + źródło modelu |
+| `GET` | `/monitoring/drift` | raport driftu (K-S per cecha + opcjonalnie Evidently HTML) |
+
+```bash
+curl -X POST localhost:5000/predict -H 'Content-Type: application/json' \
+  -d '{"features": {"fixed acidity":7.4,"volatile acidity":0.7,"citric acid":0.0,
+       "residual sugar":1.9,"chlorides":0.076,"free sulfur dioxide":11,
+       "total sulfur dioxide":34,"density":0.9978,"pH":3.51,"sulphates":0.56,"alcohol":9.4}}'
+```
+
+### Monitoring i drift
+
+- Każda predykcja jest logowana do `serving/logs/predictions.csv` (timestamp + 11 cech + wynik).
+- `GET /monitoring/drift` porównuje rozkład zalogowanych predykcji z rozkładem treningowym
+  (test Kolmogorowa-Smirnowa, `p < 0,05` → drift) i zapisuje `serving/logs/drift_report.json`
+  (oraz `drift_report.html`, jeśli Evidently jest dostępne).
+
+### Architektura inferencji
+
+Wybrano tryb **real-time** (pojedyncza predykcja na żądanie) — pasuje do interaktywnego GUI/API
+i prostego demo; przetwarzanie wsadowe (batch) nie jest tu potrzebne.
+
+### Prezentacja
+
+Slajdy (Marp): [`docs/prezentacja.md`](docs/prezentacja.md) — render do PDF: `marp docs/prezentacja.md --pdf`.

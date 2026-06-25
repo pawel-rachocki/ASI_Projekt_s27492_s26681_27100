@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Przewidywanie jakości wina</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="card">
+    <h1>🍷 Jakość czerwonego wina</h1>
+    <p class="subtitle">Klasyfikacja binarna: <code>quality &ge; 6 → dobre</code>. Wpisz właściwości fizykochemiczne.</p>
+
+    {% if error %}
+      <div class="alert">{{ error }}</div>
+    {% endif %}
+
+    {% if result %}
+      <div class="result {{ 'good' if result.prediction == 1 else 'bad' }}">
+        <div class="verdict">{{ 'DOBRE' if result.prediction == 1 else 'SŁABE' }}</div>
+        <div class="prob">prawdopodobieństwo „dobre”: <strong>{{ '%.1f'|format(result.probability * 100) }}%</strong></div>
+        <div class="src">model: {{ result.model_source }}</div>
+      </div>
+    {% endif %}
+
+    <form method="post" action="/">
+      <div class="grid">
+        {% for f in features %}
+          <label>
+            <span>{{ f }}</span>
+            <input type="number" step="any" name="{{ f }}" value="{{ values[f] }}" required>
+          </label>
+        {% endfor %}
+      </div>
+      <button type="submit">Przewiduj</button>
+    </form>
+
+    <details class="api">
+      <summary>API (JSON)</summary>
+      <pre>curl -X POST localhost:5000/predict \
+  -H 'Content-Type: application/json' \
+  -d '{"features": {"alcohol": 12.5, "...": "..."}}'</pre>
+      <p>Inne endpointy: <code>GET /health</code> · <code>GET /monitoring/drift</code> · <code>POST /predict/by_id</code> (Feast)</p>
+    </details>
+  </main>
+</body>
+</html>

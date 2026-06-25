@@ -1,0 +1,5 @@
+# artefakty Feast generowane lokalnie (feast apply / materialize)
+data/registry.db
+data/online_store.db
+data/wine_features.parquet
+data/online_store.db.lock
