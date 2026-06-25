@@ -18,6 +18,7 @@ env/
 /data/03_primary/*
 /data/05_model_input/*
 /data/06_models/*
+!/data/06_models/best_model*.pkl
 /data/08_reporting/*
 # zachowujemy strukturę katalogów i wskaźniki DVC:
 !/data/**/.gitkeep
