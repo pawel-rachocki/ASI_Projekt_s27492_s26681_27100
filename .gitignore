@@ -34,7 +34,10 @@ mlruns/
 mlflow.db
 
 # --- Kedro ---
-/conf/local/
+# Ignore local credentials/config but keep the directory so `kedro run`
+# works on a fresh clone (Kedro's default run env is `local`).
+/conf/local/*
+!/conf/local/.gitkeep
 
 # --- IDE / OS ---
 .idea/
