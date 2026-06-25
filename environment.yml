@@ -28,3 +28,4 @@ dependencies:
       - evidently
       - xgboost
       - lightgbm
+      - dvc-azure
