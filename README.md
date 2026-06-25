@@ -109,6 +109,23 @@ kedro run --pipeline=data_science
 kedro run --pipeline=evaluation
 ```
 
+### Szybkie uruchomienie (bez pełnego środowiska conda)
+
+Pełne `environment.yml` zawiera ciężkie zależności AutoML (PyCaret, Feast, Optuna,
+XGBoost, LightGBM), których rozwiązanie potrafi trwać bardzo długo lub kończyć się
+konfliktami. Sam rurociąg Kedro ich nie potrzebuje. Jeśli chcesz tylko uruchomić
+pipeline, wystarczy lekkie środowisko (zweryfikowane, instalacja w kilka sekund):
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install kedro kedro-datasets pandas scikit-learn mlflow
+pip install -e .
+kedro run
+```
+
+> Uwaga: katalog `conf/local/` jest wymagany przez Kedro (domyślny run env to `local`).
+> Jest on śledzony przez `.gitkeep`, więc istnieje od razu po sklonowaniu repozytorium.
+
 ---
 
 ## 4. Eksperymenty AutoML, Optuna i MLflow Model Registry
